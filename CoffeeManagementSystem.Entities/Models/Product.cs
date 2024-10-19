@@ -19,12 +19,6 @@ namespace CoffeeManagementSystem.Entities.Models
         public int StockQuantity { get; set; }
         public decimal Price { get; set; }
         public string? Description { get; set; }
-
-        public int SupplierId { get; set; }
-        public Supplier Supplier { get; set; }
-
-        [NotMapped]
-        public List<Supplier> supplierList { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; }
 
         [NotMapped]

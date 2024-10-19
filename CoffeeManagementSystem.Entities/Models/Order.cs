@@ -13,7 +13,6 @@
         public int PaymentId { get; set; }
         public Payment Payment { get; set; }
 
-        public ICollection<Feedback> Feedbacks { get; set; }
     }
 
 

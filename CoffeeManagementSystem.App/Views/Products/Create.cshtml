@@ -26,13 +26,6 @@
                 </select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
-            @* SupplierId *@
-            <div class="form-group">
-                <label asp-for="SupplierId" class="control-label"></label>
-                <select asp-for="SupplierId" asp-items="@(new SelectList(Model.supplierList, "SupplierId", "SupplierName"))" class="form-control">
-                    <option value="">--Select a Supplier--</option>
-                </select>
-            </div>
             @* StockQuantity *@
             <div class="form-group">
                 <label asp-for="StockQuantity" class="control-label"></label>

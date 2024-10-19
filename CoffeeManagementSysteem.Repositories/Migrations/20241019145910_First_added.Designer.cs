@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeManagementSystem.Repositories.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20241019080136_addPassword")]
-    partial class addPassword
+    [Migration("20241019145910_First_added")]
+    partial class First_added
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,36 @@ namespace CoffeeManagementSystem.Repositories.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Qty")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Carts");
+                });
 
             modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Category", b =>
                 {
@@ -38,7 +68,6 @@ namespace CoffeeManagementSystem.Repositories.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CategoryId");
@@ -57,9 +86,6 @@ namespace CoffeeManagementSystem.Repositories.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("FeedbackId")
-                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -81,76 +107,11 @@ namespace CoffeeManagementSystem.Repositories.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SuggestFlavour")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CustomerId");
 
-                    b.HasIndex("FeedbackId");
-
                     b.ToTable("Customers");
-                });
-
-            modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Employee", b =>
-                {
-                    b.Property<int>("EmployeeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ShiftSchedule")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("EmployeeId");
-
-                    b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Feedback", b =>
-                {
-                    b.Property<int>("FeedbackId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeedbackId"));
-
-                    b.Property<string>("Comments")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FeedbackDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.HasKey("FeedbackId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("Feedbacks");
                 });
 
             modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Order", b =>
@@ -162,12 +123,6 @@ namespace CoffeeManagementSystem.Repositories.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
 
                     b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FeedbackId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("OrderDate")
@@ -186,10 +141,6 @@ namespace CoffeeManagementSystem.Repositories.Migrations
                     b.HasKey("OrderId");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.HasIndex("FeedbackId");
 
                     b.HasIndex("PaymentId");
 
@@ -277,67 +228,30 @@ namespace CoffeeManagementSystem.Repositories.Migrations
                     b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("int");
-
                     b.HasKey("ProductId");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("SupplierId");
-
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Supplier", b =>
-                {
-                    b.Property<int>("SupplierId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupplierId"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ContactInfo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SupplierName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SupplierId");
-
-                    b.ToTable("Suppliers");
-                });
-
-            modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Customer", b =>
-                {
-                    b.HasOne("CoffeeManagementSystem.Entities.Models.Feedback", null)
-                        .WithMany("customerList")
-                        .HasForeignKey("FeedbackId");
-                });
-
-            modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Feedback", b =>
+            modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Cart", b =>
                 {
                     b.HasOne("CoffeeManagementSystem.Entities.Models.Customer", "Customer")
-                        .WithMany("Feedbacks")
+                        .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CoffeeManagementSystem.Entities.Models.Order", "Order")
-                        .WithMany("Feedbacks")
-                        .HasForeignKey("OrderId")
+                    b.HasOne("CoffeeManagementSystem.Entities.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Customer");
 
-                    b.Navigation("Order");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Order", b =>
@@ -347,14 +261,6 @@ namespace CoffeeManagementSystem.Repositories.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("CoffeeManagementSystem.Entities.Models.Employee", null)
-                        .WithMany("Orders")
-                        .HasForeignKey("EmployeeId");
-
-                    b.HasOne("CoffeeManagementSystem.Entities.Models.Feedback", null)
-                        .WithMany("orderList")
-                        .HasForeignKey("FeedbackId");
 
                     b.HasOne("CoffeeManagementSystem.Entities.Models.Payment", "Payment")
                         .WithMany("Orders")
@@ -394,15 +300,7 @@ namespace CoffeeManagementSystem.Repositories.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CoffeeManagementSystem.Entities.Models.Supplier", "Supplier")
-                        .WithMany("Products")
-                        .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Category");
-
-                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Category", b =>
@@ -412,26 +310,7 @@ namespace CoffeeManagementSystem.Repositories.Migrations
 
             modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Customer", b =>
                 {
-                    b.Navigation("Feedbacks");
-
                     b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Employee", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Feedback", b =>
-                {
-                    b.Navigation("customerList");
-
-                    b.Navigation("orderList");
-                });
-
-            modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Order", b =>
-                {
-                    b.Navigation("Feedbacks");
                 });
 
             modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Payment", b =>
@@ -442,11 +321,6 @@ namespace CoffeeManagementSystem.Repositories.Migrations
             modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Product", b =>
                 {
                     b.Navigation("OrderItems");
-                });
-
-            modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Supplier", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

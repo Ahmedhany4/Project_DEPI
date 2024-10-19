@@ -4,6 +4,7 @@ using ContextFile;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace CoffeeManagementSystem.App.Controllers
 {
@@ -105,3 +106,4 @@ namespace CoffeeManagementSystem.App.Controllers
         }
     }
 }
+

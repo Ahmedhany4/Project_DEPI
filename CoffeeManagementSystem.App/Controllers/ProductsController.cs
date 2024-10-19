@@ -7,19 +7,19 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CoffeeManagementSystem.App.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ProductsController : Controller
     {
         private IBaseRepository<Product> _productRepository;
         private IBaseRepository<Category> _categoryRepository;
-        private IBaseRepository<Supplier> _supplierRepository;
+        
         private IUploadFile _uploadFile;
-        public ProductsController(IBaseRepository<Product> productRepository, IBaseRepository<Category> categoryRepository, IUploadFile uploadFile, IBaseRepository<Supplier> supplierRepository)
+        public ProductsController(IBaseRepository<Product> productRepository, IBaseRepository<Category> categoryRepository, IUploadFile uploadFile)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
             _uploadFile = uploadFile;
-            _supplierRepository = supplierRepository;
+            
         }
 
         public async Task<ActionResult<IEnumerable<Product>>> Index()
@@ -35,11 +35,11 @@ namespace CoffeeManagementSystem.App.Controllers
         public async Task<ActionResult> Create()
         {
             var categories = await _categoryRepository.GetAll();
-            var suppliers = await _supplierRepository.GetAll();
+            
             var product = new Product()
             {
                 categoryList = categories.ToList(),
-                supplierList = suppliers.ToList()
+               
             };
             return View(product);
         }
@@ -52,8 +52,8 @@ namespace CoffeeManagementSystem.App.Controllers
             var categories = await _categoryRepository.GetAll();
             item.categoryList = categories.ToList();
 
-            var suppliers = await _supplierRepository.GetAll();
-            item.supplierList = suppliers.ToList();
+           
+           
             string fileName = await _uploadFile.UploadFileAsync("\\Images\\ProductsImages\\", file: item.ImageFile);
 
             item.ProductImage = fileName;
@@ -70,7 +70,7 @@ namespace CoffeeManagementSystem.App.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             var category = await _categoryRepository.GetAll();
-            var suppliers = await _supplierRepository.GetAll();
+            
 
             Product product = await _productRepository.GetById(id);
             
@@ -83,7 +83,7 @@ namespace CoffeeManagementSystem.App.Controllers
             }
 
             product.categoryList = category.ToList();
-            product.supplierList = suppliers.ToList();
+      
    
             return View("EditProduct", product);
         }
