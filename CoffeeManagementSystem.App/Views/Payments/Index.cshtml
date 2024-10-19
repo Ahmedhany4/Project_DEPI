@@ -1,0 +1,44 @@
+﻿@model IEnumerable<CoffeeManagementSystem.Entities.Models.Payment>
+
+@{
+    ViewData["Title"] = "Payment";
+}
+
+<h1>Payment <span b-m74snmkbix="" class="badge badge-info right"> @ViewBag.PaymentsCount</span></h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentMethod)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentMethod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PaymentId" class="btn btn-primary">Edit</a> 
+                    <a asp-action="Details" asp-route-id="@item.PaymentId" class="btn btn-secondary">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.PaymentId" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

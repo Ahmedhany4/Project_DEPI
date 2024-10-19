@@ -1,0 +1,25 @@
+﻿@model CoffeeManagementSystem.Entities.Models.Payment
+
+@{
+    ViewData["Title"] = "Details Payment";
+}
+
+<h1>Details Payment</h1>
+
+<div class="container">
+    <h2>Payment Details</h2>
+    <div class="card">
+        <div class="card-header">
+            <h5>@Model.PaymentMethod </h5>
+        </div>
+        <div class="card-body">
+            <p><strong>@Html.DisplayNameFor(model => model.PaymentMethod):</strong> @Html.DisplayFor(model => model.PaymentMethod)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.PaymentDate):</strong> @Html.DisplayFor(model => model.PaymentDate)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.Amount):</strong> @Html.DisplayFor(model => model.Amount)</p>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Index" class="btn btn-warning">Back to List</a>
+            <a asp-action="Edit" asp-route-id="@Model.PaymentId" class="btn btn-primary">Edit</a>
+        </div>
+    </div>
+</div>

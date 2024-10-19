@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CoffeeManagementSystem.Entities.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Categories <span b-m74snmkbix="" class="badge badge-info right"> @ViewBag.categoriescount</span></h1>
+
+
+
+<table class="table text-center">
+    <thead>
+        <tr class="text-start">
+            <th style="width:30%">
+                @Html.DisplayNameFor(model => model.First().CategoryName)
+            </th>
+            <th style="width:40%">
+                @Html.DisplayNameFor(model => model.First().Description)
+            </th> 
+            <th style="width:30%">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr >
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td> 
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CategoryId" class="btn btn-primary">Edit</a> 
+                    <a asp-action="Details" asp-route-id="@item.CategoryId" class="btn btn-secondary">Details</a> 
+                    <a asp-action="Delete" asp-route-id="@item.CategoryId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

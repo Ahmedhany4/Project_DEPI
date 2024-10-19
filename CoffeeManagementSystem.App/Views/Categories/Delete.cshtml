@@ -1,0 +1,27 @@
+﻿@model CoffeeManagementSystem.Entities.Models.Category
+
+@{
+    ViewData["Title"] = "Delete Category";
+}
+<div class="container">
+    <h2>Delete Category</h2>
+    <h3 class="text-danger">Are you sure you want to delete this Category?</h3>
+
+    <div class="card">
+        <div class="card-header">
+            <h5>@Model.CategoryName</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Category Name:</strong>  @Html.DisplayFor(model => model.CategoryName)</p>
+            <p><strong>Description:</strong> @Html.DisplayFor(model => model.Description)</p>
+            
+        </div>
+        <div class="card-footer">
+            <form asp-action="DeleteConfirmed" asp-route-id="@Model.CategoryId" method="post">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<CoffeeManagementSystem.Entities.Models.Product>
+
+@{
+    ViewData["Title"] = " Products";
+    Layout = "_Home";
+}
+
+<section class="generic-banner relative">
+    <div class="container">
+        <div class="row height align-items-center justify-content-center">
+            <div class="col-lg-10">
+                <div class="generic-banner-content">
+                    <h2 class="text-white">Products</h2>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->
+
+<div class="container">
+    <div class="row m-3">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="@product.ProductImage" class="card-img-top" alt="@product.ProductName" />
+                    <div class="card-body">
+                        <h5 class="card-title">@product.ProductName</h5>
+                        <p class="card-text">
+                            <strong>Category:</strong> @product.Category.CategoryName <br />
+                            <strong>Supplier:</strong> @product.Supplier.SupplierName <br />
+                            <strong>Price:</strong> @product.Price.ToString("C") <br />
+                            <strong>Stock Quantity:</strong> @product.StockQuantity
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a asp-controller="Show" asp-action="Details" asp-route-id="@product.ProductId" class="genric-btn info radius">View Details</a>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

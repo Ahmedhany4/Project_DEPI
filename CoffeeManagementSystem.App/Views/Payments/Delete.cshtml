@@ -1,0 +1,28 @@
+﻿@model CoffeeManagementSystem.Entities.Models.Payment
+
+@{
+    ViewData["Title"] = "Delete Payment";
+}
+
+<div class="container">
+    <h2>Delete Payment</h2>
+    <h3 class="text-danger">Are you sure you want to delete this Payment?</h3>
+
+    <div class="card">
+        <div class="card-header">
+            <h5>@Model.PaymentMethod</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>@Html.DisplayNameFor(model => model.PaymentMethod):</strong> @Html.DisplayFor(model => model.PaymentMethod)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.PaymentDate):</strong> @Html.DisplayFor(model => model.PaymentDate)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.Amount):</strong> @Html.DisplayFor(model => model.Amount)</p>
+        </div>
+        <div class="card-footer">
+            <form asp-action="DeleteConfirmed" asp-route-id="@Model.PaymentId" method="post">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>

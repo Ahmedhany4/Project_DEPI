@@ -1,0 +1,56 @@
+﻿@model CoffeeManagementSystem.Entities.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_Home";
+}
+
+<section class="generic-banner relative">
+    <div class="container">
+        <div class="row height align-items-center justify-content-center">
+            <div class="col-lg-10">
+                <div class="generic-banner-content">
+                    <h2 class="text-white">Details Product</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">@Html.DisplayFor(model => model.ProductName)</h4>
+            <hr />
+
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="@Model.ProductImage" alt="@Model.ProductName" class="img-fluid" />
+                </div>
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">Category:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Category.CategoryName)</dd>
+
+                        <dt class="col-sm-4">Stock Quantity:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.StockQuantity)</dd>
+
+                        <dt class="col-sm-4">Price:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Price)</dd>
+
+                        <dt class="col-sm-4">Description:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Description)</dd>
+
+                        <dt class="col-sm-4">Supplier:</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Supplier.SupplierName)</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a class="genric-btn info radius" asp-action="AddToCart" asp-route-id="@Model.ProductId">Add To Cart</a>
+        <a class="genric-btn primary radius" asp-action="Products">Back to List</a>
+    </div>
+</div>

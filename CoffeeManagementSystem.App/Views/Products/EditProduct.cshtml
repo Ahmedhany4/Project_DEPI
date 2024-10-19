@@ -1,0 +1,108 @@
+﻿@model CoffeeManagementSystem.Entities.Models.Product
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<h1>Edit Product</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @* Product ID *@
+            <div class="form-group">
+                <label asp-for="ProductId" class="control-label"></label>
+                <input asp-for="ProductId" class="form-control" readonly />
+                <span asp-validation-for="ProductId" class="text-danger"></span>
+            </div>
+
+            @* Product Name *@
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+
+            @* Description *@
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            @* Price *@
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            @* Stock Quantity *@
+            <div class="form-group">
+                <label asp-for="StockQuantity" class="control-label"></label>
+                <input asp-for="StockQuantity" class="form-control" />
+                <span asp-validation-for="StockQuantity" class="text-danger"></span>
+            </div>
+
+            @* Category DropDown *@
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" asp-items="@(new SelectList(Model.categoryList ?? new List<Category>(), "CategoryId", "CategoryName"))" class="form-control"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            @* Supplier DropDown *@
+            <div class="form-group">
+                <label asp-for="SupplierId" class="control-label"></label>
+                <select asp-for="SupplierId" asp-items="@(new SelectList(Model.supplierList ?? new List<Supplier>(), "SupplierId", "SupplierName"))" class="form-control"></select>
+                <span asp-validation-for="SupplierId" class="text-danger"></span>
+            </div>
+
+            @* Image Upload *@
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="ImageFile" class="form-control" type="file" onchange="loadFile(event)" />
+                </div>
+            </div>
+
+            @* Image Preview *@
+            <div class="col-md-3 m-3">
+                @if ( string.IsNullOrEmpty(Model.ProductImage))
+                {
+                    <img id="output" src="~/Images/ProductsImages/noImage.png" alt="No Image" style="width:100%; height:auto;" />
+                }
+                else
+                {
+                    <img id="output" src="@Url.Content(Model.ProductImage)" alt="Product Image" style="width:100%; height:auto;" />
+                }
+            </div>
+
+
+            @* Submit Button *@
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        var loadFile = function (event) {
+            var output = document.getElementById('output');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function () {
+                URL.revokeObjectURL(output.src); // Free up memory
+            }
+        };
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

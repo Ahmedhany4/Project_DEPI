@@ -1,0 +1,50 @@
+﻿@model IEnumerable<CoffeeManagementSystem.Entities.Models.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h1>
+            Products
+            <span b-m74snmkbix="" class="badge badge-info right"> @ViewBag.productscount</span>
+        </h1>
+        
+       
+    </div>
+</div>
+<hr />
+
+<div class="row mt-2" id="productsCards">
+    <partial name="_ProductCards" model="Model" />
+</div>
+
+@section scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            $('#livesearchtags').on('keyup', function () {
+                LiveSearch();
+            });
+
+            function LiveSearch() {
+                let value = $('#livesearchtags').val();
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("SearchWithAjax", "Products")',
+                    data: { search: value },
+                    datatype: "html",
+                    success: function (data) {
+                        $('#productsCards').html(data);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Live search error: ', error);
+                    }
+                });
+            }
+        });
+    </script>
+}

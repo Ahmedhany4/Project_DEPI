@@ -1,0 +1,27 @@
+﻿@model CoffeeManagementSystem.Entities.Models.Employee
+
+@{
+    ViewData["Title"] = "Details Employee";
+}
+
+<h1>Details</h1>
+
+    <h4>Employee</h4>
+<div class="container">
+    <h2>Details Of Category</h2>
+    <div class="card">
+        <div class="card-header">
+            <h5>@Model.FirstName @Model.LastName</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>@Html.DisplayNameFor(model => model.FirstName):</strong> @Html.DisplayFor(model => model.FirstName)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.LastName):</strong> @Html.DisplayFor(model => model.LastName)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.Role):</strong> @Html.DisplayFor(model => model.Role)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.ShiftSchedule):</strong> @Html.DisplayFor(model => model.ShiftSchedule)</p>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Index" class="btn btn-warning">Back to List</a>
+            <a asp-action="Edit" asp-route-id="@Model.EmployeeId" class="btn btn-primary">Edit</a>
+        </div>
+    </div>
+</div>

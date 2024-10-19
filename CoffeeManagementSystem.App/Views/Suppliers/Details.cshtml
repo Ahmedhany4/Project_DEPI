@@ -1,0 +1,40 @@
+﻿@model CoffeeManagementSystem.Entities.Models.Supplier
+
+@{
+    ViewData["Title"] = "Details Supplier";
+}
+
+<h1>Details Supplier</h1>
+
+
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details Customer</h1>
+
+<div>
+    <h4>Customer</h4>
+    <hr />
+  
+</div>
+<div class="container">
+    <h2>Details Of Category</h2>
+    <div class="card">
+        <div class="card-header">
+            <h5>@Model.SupplierName</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>@Html.DisplayNameFor(model => model.SupplierName):</strong> @Html.DisplayFor(model => model.SupplierName)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.ContactInfo):</strong> @Html.DisplayFor(model => model.ContactInfo)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.Address):</strong> @Html.DisplayFor(model => model.Address)</p>
+     
+        </div>
+        <div class="card-footer">
+            <a asp-action="Index" class="btn btn-warning">Back to List</a>
+            <a asp-action="Edit" asp-route-id="@Model.SupplierId" class="btn btn-primary">Edit</a>
+        </div>
+    </div>
+</div>

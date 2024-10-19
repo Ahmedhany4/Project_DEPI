@@ -1,0 +1,32 @@
+﻿@model CoffeeManagementSystem.Entities.Models.Product
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container">
+    <h2>Details Of Product</h2>
+    <div class="card">
+        <div class="card-header">
+            <h5>@Model.ProductName</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Category:</strong> @Model.Category?.CategoryName</p>
+            <p><strong>Price:</strong> @Model.Price</p>
+            <p><strong>Description:</strong> @Model.Description</p>
+            <div>
+                @if (string.IsNullOrEmpty(Model.ProductImage))
+                {
+                    <img src="~/Images/ProductsImages/noImage.png" alt="No Image" class="img-fluid" style="width:200px; height:auto;" />
+                }
+                else
+                {
+                    <img src="@Url.Content(Model.ProductImage)" alt="@Model.ProductName" class="img-fluid" style="width:200px; height:auto;" />
+                }
+            </div>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Index" class="btn btn-warning">Back to List</a>
+            <a asp-action="Edit" asp-route-id="@Model.ProductId" class="btn btn-primary">Edit</a>
+        </div>
+    </div>
+</div>

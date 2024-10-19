@@ -1,0 +1,38 @@
+﻿@model CoffeeManagementSystem.Entities.Models.Product
+
+@{
+    ViewData["Title"] = "Delete Product";
+}
+
+<div class="container">
+    <h2>Delete Product</h2>
+    <h3 class="text-danger">Are you sure you want to delete this product?</h3>
+
+    <div class="card">
+        <div class="card-header">
+            <h5>@Model.ProductName</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Category:</strong> @Model.Category?.CategoryName</p>
+            <p><strong>Price:</strong> @Model.Price</p>
+            <p><strong>Description:</strong> @Model.Description</p>
+            <div>
+                @if (string.IsNullOrEmpty(Model.ProductImage))
+                {
+                    <img src="~/Images/ProductsImages/noImage.png" alt="No Image" class="img-fluid" style="width:200px; height:auto;" />
+                }
+                else
+                {
+                    <img src="@Url.Content(Model.ProductImage)" alt="@Model.ProductName" class="img-fluid" style="width:200px; height:auto;" />
+                }
+            </div>
+        </div>
+        <div class="card-footer">
+            <form asp-action="DeleteConfirmed" asp-route-id="@Model.ProductId" method="post">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CoffeeManagementSystem.Entities.Models.Product>
+
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5>@item.ProductName</h5>
+                    </div>
+                    <div class="card-body" style="height: 300px;">
+                        @if (string.IsNullOrEmpty(item.ProductImage))
+                        {
+                            <img src="~/Images/ProductsImages/noImage.png" alt="No Image" class="img-fluid" style="width:100%; height:100%;" />
+                        }
+                        else
+                        {
+                            <img src="@Url.Content(item.ProductImage)" alt="@item.ProductName" class="img-fluid" style="width:100%; height:100%;" />
+                        }
+                    </div>
+                    <div class="card-footer">
+                        <p>Category: @item.Category?.CategoryName - Price: @item.Price</p>
+                        <div>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }, new { @class = "btn btn-primary" }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ProductId }, new { @class = "btn btn-primary" })
+
+                            <!-- Delete form instead of action link -->
+                            <form asp-action="Delete" asp-route-id="@item.ProductId" method="post" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

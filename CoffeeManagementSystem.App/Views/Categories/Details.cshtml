@@ -1,0 +1,23 @@
+﻿@model CoffeeManagementSystem.Entities.Models.Category
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div class="container">
+    <h2>Details Of Category</h2>
+    <div class="card">
+        <div class="card-header">
+            <h5>@Model.CategoryName</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Description:</strong> @Model.Description</p>
+        </div>
+        <div class="card-footer">
+            <a asp-action="Index" class="btn btn-warning">Back to List</a>
+            <a asp-action="Edit" asp-route-id="@Model.CategoryId" class="btn btn-primary">Edit</a>
+        </div>
+    </div>
+</div>
