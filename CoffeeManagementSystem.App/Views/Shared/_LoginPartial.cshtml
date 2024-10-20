@@ -1,0 +1,38 @@
+﻿@using CoffeeManagementSystem.Repositories.Context
+@inject SignInManager<AppUser> _signInManager
+@inject UserManager<AppUser> _userManager
+
+    @if (_signInManager.IsSignedIn(User))
+    {
+    <li>
+        <a asp-controller="Cart" asp-action="Index" class="nav-link">Cart</a>
+    </li>
+    @if (User.Identity != null && User.Identity.IsAuthenticated && User.Identity.Name.Equals("admin", StringComparison.OrdinalIgnoreCase))
+    {
+        <li>
+            <a asp-controller="Dashboard" asp-action="Index" class="nav-link">DashBoard</a>
+        </li>
+    }
+
+    <li class="menu-has-children">
+        <a href="" class="sf-with-ul">@User.Identity.Name</a>
+        <ul style="display: none;">
+            <li>
+                <form asp-action="Logout" asp-controller="Account" method="post">
+                    <button type="submit" class="btn btn-danger w-100">Logout</button>
+                </form>
+            </li>
+
+        </ul>
+    </li>
+
+    }
+    else
+    {
+    <li >
+        <a asp-controller="Account" asp-action="Register" class="nav-link">Register</a>
+        </li>
+        <li >
+        <a asp-controller="Account" asp-action="Login" class="nav-link">Log in</a>
+        </li>
+    }

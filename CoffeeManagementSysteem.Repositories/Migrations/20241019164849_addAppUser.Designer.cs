@@ -4,6 +4,7 @@ using ContextFile;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeManagementSystem.Repositories.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241019164849_addAppUser")]
+    partial class addAppUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -298,42 +301,6 @@ namespace CoffeeManagementSystem.Repositories.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "62fe5285-fd68-4711-ae93-673787f4ac66",
-                            AccessFailedCount = 0,
-                            Address = "",
-                            ConcurrencyStamp = "be94459a-d971-43aa-b3bc-d3f7afbfbc7d",
-                            Email = "admin@admin.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@ADMIN.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJZNopOTImS8Gmv1iKclC/QbVKf/fYyAUoV6om4FFhh9Ea102gSGP6xMwhNvmMrEbA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "39415ef0-f3c8-4364-84f6-2561a3be94b6",
-                            TwoFactorEnabled = false,
-                            UserName = "Admin"
-                        },
-                        new
-                        {
-                            Id = "62fe5285-fd68-4711-ae93-673787f4a111",
-                            AccessFailedCount = 0,
-                            Address = "",
-                            ConcurrencyStamp = "be096976-c335-47a0-99ee-cfac8eebb08f",
-                            Email = "user@user.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "USER@USER.COM",
-                            NormalizedUserName = "USER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGUrjnJWm5+EgJXNBzI99LKz1ARf3aCOknQI3HWdv/xal9mFBMGwBCFyuA9hE2E2XA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "ecbd4995-8abd-4828-ab3f-2f337060fe7d",
-                            TwoFactorEnabled = false,
-                            UserName = "user"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -361,20 +328,6 @@ namespace CoffeeManagementSystem.Repositories.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "540fa4db-060f-4f1b-b60a-dd199bfe4f0b",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "540fa4db-060f-4f1b-b60a-dd199bfe4111",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -462,23 +415,6 @@ namespace CoffeeManagementSystem.Repositories.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "62fe5285-fd68-4711-ae93-673787f4ac66",
-                            RoleId = "540fa4db-060f-4f1b-b60a-dd199bfe4f0b"
-                        },
-                        new
-                        {
-                            UserId = "62fe5285-fd68-4711-ae93-673787f4a111",
-                            RoleId = "540fa4db-060f-4f1b-b60a-dd199bfe4111"
-                        },
-                        new
-                        {
-                            UserId = "62fe5285-fd68-4711-ae93-673787f4ac66",
-                            RoleId = "540fa4db-060f-4f1b-b60a-dd199bfe4111"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

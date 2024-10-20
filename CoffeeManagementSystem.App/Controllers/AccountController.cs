@@ -1,54 +1,109 @@
 ﻿using CoffeeManagementSystem.Entities.Models;
+using CoffeeManagementSystem.Repositories.Context;
+using CoffeeManagementSystem.Repositories.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 public class AccountController : Controller
 {
-    private readonly UserManager<IdentityUser> _userManager;
-    private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly UserManager<AppUser> _userManager;
+    private readonly SignInManager<AppUser> _signInManager;
 
-    public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+    public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
     {
         _userManager = userManager;
         _signInManager = signInManager;
     }
 
-    // GET: Login method
-    [HttpGet]
+   
+
+
+    public IActionResult Register()
+    {
+        return View();
+    }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Register(RegisterViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            var newUser = new AppUser
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                Address = model.Address
+            };
+
+            var result = await _userManager.CreateAsync(newUser, model.Password);
+
+            if (result.Succeeded)
+            {
+                await _signInManager.SignInAsync(newUser, isPersistent: false);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+        }
+
+        return View(model);
+    }
+
+
     public IActionResult Login()
     {
         return View();
     }
 
+
+
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Login(Customer model)
-    {
+    public async Task <IActionResult> Login(LoginViewModel model)
+	{
         if (ModelState.IsValid)
         {
-            // استرجاع المستخدم من قاعدة البيانات
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user != null)
+            var user = await _userManager.FindByNameAsync(model.UserName);
+
+            if (user == null)
             {
-                // التحقق من كلمة المرور
-                var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: false);
-                if (result.Succeeded)
+                user = await _userManager.FindByEmailAsync(model.UserName);
+                if (user == null)
                 {
-                    return RedirectToAction("Index", "Home");
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return View(model);
                 }
-                else
-                {
-                    return View("Page404");
-                }
+
             }
 
-            // إضافة خطأ في حالة الفشل
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-        }
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.Rememberme, false);
 
-        // إذا كان هناك خطأ، أعد عرض النموذج مع الأخطاء
-        return View(model);
+            if (result.Succeeded )
+            { 
+                return RedirectToAction("Index", "Home");
+            }
+
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+  
+
+        }
+		return View(model);
+	}
+
+
+	[HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Logout()
+    {
+        await _signInManager.SignOutAsync();
+
+        return RedirectToAction("Index", "Home");
     }
+
+
 
 }

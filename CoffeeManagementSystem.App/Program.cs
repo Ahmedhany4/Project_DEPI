@@ -3,8 +3,9 @@ using ContextFile;
 using CoffeeManagementSystem.Repositories.Interfaces;
 using CoffeeManagementSystem.Repositories.Implementations;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication.Cookies;
+
 using CoffeeManagementSystem.Repositories.Emplimintations;
+using CoffeeManagementSystem.Repositories.Context;
 //using CoffeeManagementSystem.Repositories.Context;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,24 +16,31 @@ builder.Services.AddControllersWithViews();
 // Configure Entity Framework to use SQL Server
 builder.Services.AddDbContext<MyDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-// Register AuthContext
-//builder.Services.AddDbContext<AuthContext>(options =>
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-// Configure Identity services
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<MyDbContext>()
-    .AddDefaultTokenProviders();
+builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+    {
+        options.Password.RequiredLength = 3;
+        options.Password.RequiredUniqueChars = 0;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireDigit = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireUppercase = false;
+
+    }
+
+
+).AddEntityFrameworkStores<MyDbContext>().AddDefaultTokenProviders();
+
 
 // Configure cookie authentication
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.LoginPath = "/Account/Login"; // Redirect to this path if unauthenticated
-    options.AccessDeniedPath = "/Account/AccessDenied"; // Redirect to this path if access is denied
-    options.SlidingExpiration = true; // Refresh the authentication cookie on activity
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Set cookie expiration time
-});
+//builder.Services.ConfigureApplicationCookie(options =>
+//{
+//    options.LoginPath = "/Account/Login"; // Redirect to this path if unauthenticated
+//    options.AccessDeniedPath = "/Account/AccessDenied"; // Redirect to this path if access is denied
+//    options.SlidingExpiration = true; // Refresh the authentication cookie on activity
+//    options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Set cookie expiration time
+//});
 
 // Register your repositories
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
