@@ -1,0 +1,39 @@
+﻿
+
+@{
+    ViewData["Title"] = "Payment";
+    Layout = "_Home";
+}
+
+<section class="generic-banner relative">
+    <div class="container">
+        <div class="row height align-items-center justify-content-center">
+            <div class="col-lg-10">
+                <div class="generic-banner-content">
+                    <h2 class="text-white">Payment</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-success">Confirm Your Payment</h2>
+
+    
+
+                <form asp-action="ConfirmPayment" method="post">
+                    <div class="form-group">
+                        <label for="paymentMethod">Select Payment Method:</label>
+                        <select class="form-control" id="paymentMethod" name="paymentMethod">
+                            <option value="credit">Credit Card</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="cash">Cash on Delivery</option>
+                        </select>
+                    </div>
+            <a asp-action="ThankYou" type="submit" class="genric-btn success radius">Confirm Payment</a>
+                </form>
+            </div>
+        </div>
+    
+</div>

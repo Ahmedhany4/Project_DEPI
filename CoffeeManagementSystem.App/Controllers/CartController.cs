@@ -115,8 +115,16 @@ namespace CoffeeManagementSystem.App.Controllers
             return RedirectToAction("Index", "Cart");
         }
 
+        public IActionResult Payment() {
 
+            return View();
+        }
 
+        public IActionResult ThankYou()
+        {
+           
+            return View();
+        }
 
 
 
