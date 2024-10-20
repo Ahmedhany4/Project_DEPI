@@ -4,6 +4,7 @@ using ContextFile;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeManagementSystem.Repositories.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241020162002_AddToCart")]
+    partial class AddToCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,7 +71,7 @@ namespace CoffeeManagementSystem.Repositories.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartItems");
+                    b.ToTable("CartItem");
                 });
 
             modelBuilder.Entity("CoffeeManagementSystem.Entities.Models.Category", b =>
@@ -324,15 +327,15 @@ namespace CoffeeManagementSystem.Repositories.Migrations
                             Id = "62fe5285-fd68-4711-ae93-673787f4ac66",
                             AccessFailedCount = 0,
                             Address = "",
-                            ConcurrencyStamp = "af51622b-2f58-43e3-b61d-f7bf4def9b9a",
+                            ConcurrencyStamp = "19225367-4235-4f9b-b784-797a767953dc",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJKHMVNMULgtMnmlABJL3NtHZ26Gijy090bjwqLVbj581qBu9BG8TUnPK2BqbC764g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJWU6VNe/aceQhrKXB3SDXAw0zfMjaimE3WWkefyMY6d+EkmIll3BOdU5t1NbgDNMg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b4295b55-9904-4fa5-823b-7bf105e7b576",
+                            SecurityStamp = "0dfffa7b-9c5f-4113-be91-2266a5bb0e9a",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -341,15 +344,15 @@ namespace CoffeeManagementSystem.Repositories.Migrations
                             Id = "62fe5285-fd68-4711-ae93-673787f4a111",
                             AccessFailedCount = 0,
                             Address = "",
-                            ConcurrencyStamp = "832ecec5-b571-4493-ae0a-dbf2e1ac14b1",
+                            ConcurrencyStamp = "13ed131a-1247-4fd8-8590-f610387ca80a",
                             Email = "user@user.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEJ1AP6ktRVswxT9jFjduVI151jhJVpjq8PwYFg2jFwhv6ha4IJnruMw/OURqad9Ow==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKt/ZCeabSzJEH6H8gsW5Vd3ifrKJFjXPWumuqr8jsX7a1Za5eoL7z9KKk4nafn51w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bf9e54b4-daa0-4189-bbac-33a7b8e704af",
+                            SecurityStamp = "ccf2a112-65f6-4298-ab1b-308fe5bfabc5",
                             TwoFactorEnabled = false,
                             UserName = "user"
                         });

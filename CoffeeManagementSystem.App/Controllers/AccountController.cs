@@ -4,6 +4,7 @@ using CoffeeManagementSystem.Repositories.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
+
 public class AccountController : Controller
 {
     private readonly UserManager<AppUser> _userManager;
@@ -32,13 +33,15 @@ public class AccountController : Controller
             {
                 UserName = model.UserName,
                 Email = model.Email,
-                Address = model.Address
+                Address = model.Address,
+                EmailConfirmed =true,
             };
 
             var result = await _userManager.CreateAsync(newUser, model.Password);
 
-            if (result.Succeeded)
+            if (result.Succeeded)    
             {
+                await _userManager.AddToRoleAsync(newUser ,"User");
                 await _signInManager.SignInAsync(newUser, isPersistent: false);
 
                 return RedirectToAction("Index", "Home");
@@ -103,7 +106,10 @@ public class AccountController : Controller
 
         return RedirectToAction("Index", "Home");
     }
-
+    [HttpGet]
+    public IActionResult AccessDenied() {
+        return View();
+    }
 
 
 }

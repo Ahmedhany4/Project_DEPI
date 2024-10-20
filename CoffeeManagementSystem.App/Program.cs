@@ -26,21 +26,19 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
         options.Password.RequireDigit = false;
         options.Password.RequireLowercase = false;
         options.Password.RequireUppercase = false;
+        options.SignIn.RequireConfirmedEmail = false;
 
     }
-
 
 ).AddEntityFrameworkStores<MyDbContext>().AddDefaultTokenProviders();
 
 
 // Configure cookie authentication
-//builder.Services.ConfigureApplicationCookie(options =>
-//{
-//    options.LoginPath = "/Account/Login"; // Redirect to this path if unauthenticated
-//    options.AccessDeniedPath = "/Account/AccessDenied"; // Redirect to this path if access is denied
-//    options.SlidingExpiration = true; // Refresh the authentication cookie on activity
-//    options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Set cookie expiration time
-//});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = "/Account/AccessDenied"; // Redirect to this path if access is denied
+});
 
 // Register your repositories
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));

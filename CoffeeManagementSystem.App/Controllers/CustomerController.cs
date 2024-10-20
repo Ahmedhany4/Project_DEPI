@@ -5,7 +5,7 @@ using CoffeeManagementSystem.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 namespace CoffeeManagementSystem.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class CustomersController : Controller
     {
         private IBaseRepository<Customer> _customerRepository;

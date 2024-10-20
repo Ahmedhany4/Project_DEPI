@@ -8,7 +8,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace CoffeeManagementSystem.App.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class CategoriesController : Controller
     {
 

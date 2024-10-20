@@ -1,10 +1,11 @@
-﻿@{
+﻿@model Cart
+@{
 	ViewData["Title"] = "Cart";
 	Layout = "_Home";
 }
 
 
-<section class="generic-banner relative">
+ <section class="generic-banner relative">
 	<div class="container">
 		<div class="row height align-items-center justify-content-center">
 			<div class="col-lg-10">
@@ -19,4 +20,56 @@
 </section>
 <!-- End banner Area -->
 
-<h2>Cart</h2>
+
+
+
+
+<div class="container">
+    <h2 class="mt-5 mb-3 text-success">Your Cart</h2>
+
+    @if (Model?.CartItems == null || !Model.CartItems.Any())
+    {
+        <p>Your cart is empty.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Actions</th> <!-- Added a column for actions -->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CartItems)
+                {
+                    <tr>
+                        <td>@item.Product.ProductName</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Price.ToString("C")</td>
+                        <td>@item.TotalPrice.ToString("C")</td>
+                        <td>
+                            <!-- Add a form to delete the item -->
+                            <form asp-action="DeleteCartItem" asp-controller="Cart" method="post">
+                                <input type="hidden" name="itemId" value="@item.Id" />
+                                <button type="submit" class="genric-btn danger small">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">Total Price</td>
+                    <td class="text-danger" style="font-size:18px; font-weight:bold;">@Model.TotalPrice.ToString("C")</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+        <a class="genric-btn danger" asp-action="Payment">Check Out</a>
+    }
+    <a class="genric-btn success" asp-action="Products" asp-controller="Show">Back To List</a>
+</div>

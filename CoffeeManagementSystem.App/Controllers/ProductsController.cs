@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CoffeeManagementSystem.App.Controllers
 {
-    //[Authorize]
+    [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private IBaseRepository<Product> _productRepository;

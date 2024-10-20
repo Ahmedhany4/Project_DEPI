@@ -10,13 +10,14 @@
         <div class="row height align-items-center justify-content-center">
             <div class="col-lg-10">
                 <div class="generic-banner-content">
-                    <h2 class="text-white">Details Product</h2>
+                    <h2 class="text-white">Product Details</h2>
                 </div>
             </div>
         </div>
     </div>
 </section>
 <!-- End banner Area -->
+
 <div class="container mt-5">
     <div class="card">
         <div class="card-body">
@@ -25,22 +26,22 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <img src="@Model.ProductImage" alt="@Model.ProductName" class="img-fluid" />
+                    <!-- Display product image with a fallback if the image URL is not valid -->
+                    <img src="@Model.ProductImage" alt="@Model.ProductName" class="img-fluid" onerror="this.src='/images/default-product.png';" />
                 </div>
                 <div class="col-md-6">
                     <dl class="row">
                         <dt class="col-sm-4">Category:</dt>
-                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Category.CategoryName)</dd>
+                        <dd class="col-sm-8">@Model.Category?.CategoryName ?? "No Category"</dd>
 
                         <dt class="col-sm-4">Stock Quantity:</dt>
-                        <dd class="col-sm-8">@Html.DisplayFor(model => model.StockQuantity)</dd>
+                        <dd class="col-sm-8">@Model.StockQuantity</dd>
 
                         <dt class="col-sm-4">Price:</dt>
-                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Price)</dd>
+                        <dd class="col-sm-8">@Model.Price.ToString("C")</dd>
 
                         <dt class="col-sm-4">Description:</dt>
-                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Description)</dd>
-
+                        <dd class="col-sm-8">@Model.Description</dd>
                     </dl>
                 </div>
             </div>
@@ -48,7 +49,13 @@
     </div>
 
     <div class="mt-4">
-        <a class="genric-btn info radius" asp-action="AddToCart" asp-route-id="@Model.ProductId">Add To Cart</a>
+        <!-- AddToCart button now uses POST method and includes a form for proper interaction -->
+        <form asp-action="AddToCart" asp-controller="Cart" method="post">
+            <input type="hidden" name="productId" value="@Model.ProductId" />
+            <input type="hidden" name="quantity" value="1" />
+            <button type="submit" class="genric-btn info radius">Add To Cart</button>
+        </form>
+
         <a class="genric-btn primary radius" asp-action="Products">Back to List</a>
     </div>
 </div>
